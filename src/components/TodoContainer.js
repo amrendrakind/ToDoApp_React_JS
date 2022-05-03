@@ -1,5 +1,6 @@
 import React from 'react';
 import TodosList from './TodosList';
+import Header from './Header'
 
 class TodoContainer extends React.PureComponent {
   state = {
@@ -25,6 +26,7 @@ class TodoContainer extends React.PureComponent {
   render() {
     return (
       <div>
+        <Header />
         <TodosList todos={this.state.todos} />
       </div>
     );
