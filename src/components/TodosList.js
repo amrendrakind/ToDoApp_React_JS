@@ -5,36 +5,19 @@ import TodoItem from './TodoItem';
 class TodosList extends React.PureComponent {
   constructor(props) {
     super(props);
-    const { todos } = props;
-    this.state = {
-      todos,
-    };
-    this.handleChange = this.handleChange.bind(this);
+    this.state = {};
   }
 
-  handleChange = (id) => {
-    this.setState((prevState) => ({
-      todos: prevState.todos.map((todo) => {
-        if (todo.id === id) {
-          return {
-            ...todo,
-            completed: !todo.completed,
-          };
-        }
-        return todo;
-      }),
-    }));
-  };
-
   render() {
-    const { todos } = this.state;
+    const { todos, handleChangeProps, handleDeleteTodoProps } = this.props;
     return (
       <ul>
         {todos.map((todo) => (
           <TodoItem
             key={todo.id}
             todo={todo}
-            handleChangeProps={this.handleChange}
+            handleChangeProps={handleChangeProps}
+            handleDeleteTodoProps={handleDeleteTodoProps}
           />
         ))}
       </ul>
@@ -49,5 +32,7 @@ TodosList.propTypes = {
       completed: PropTypes.bool.isRequired,
     }),
   ).isRequired,
+  handleChangeProps: PropTypes.func.isRequired,
+  handleDeleteTodoProps: PropTypes.func.isRequired,
 };
 export default TodosList;

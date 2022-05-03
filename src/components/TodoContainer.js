@@ -26,12 +26,34 @@ class TodoContainer extends React.PureComponent {
     };
   }
 
+  handleChange = (id) => {
+    this.setState((prevState) => ({
+      todos: prevState.todos.map((todo) => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            completed: !todo.completed,
+          };
+        }
+        return todo;
+      }),
+    }));
+  }
+
+  delTodo = (id) => {
+    console.log('deleted', id);
+  }
+
   render() {
     const { todos } = this.state;
     return (
       <div>
         <Header />
-        <TodosList todos={todos} />
+        <TodosList
+          todos={todos}
+          handleChangeProps={this.handleChange}
+          handleDeleteTodoProps={this.delTodo}
+        />
       </div>
     );
   }
