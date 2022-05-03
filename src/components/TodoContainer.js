@@ -28,7 +28,6 @@ class TodoContainer extends React.PureComponent {
 
   render() {
     const { todos } = this.state;
-    // console.log(todos);
     return (
       <div>
         <Header />
