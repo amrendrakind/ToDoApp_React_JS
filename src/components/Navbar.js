@@ -5,7 +5,7 @@ const Navbar = () => {
   const links = [
     {
       id: 1,
-      path: '/ToDoApp_React_JS/',
+      path: '/ToDoApp_React_JS',
       text: 'Home',
     },
     {
