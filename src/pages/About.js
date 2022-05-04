@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
-// import SinglePage from './SinglePage';
 
 const About = () => (
   <div className="about__content">
