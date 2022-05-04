@@ -19,10 +19,12 @@ class InputTodo extends PureComponent {
     const { addTodoProps } = this.props;
     const { title } = this.state;
     e.preventDefault();
-    addTodoProps(title);
-    this.setState({
-      title: '',
-    });
+    if (title.trim()) {
+      addTodoProps(title);
+      this.setState({
+        title: '',
+      });
+    }
   };
 
   render() {
