@@ -7,6 +7,7 @@ import InputTodo from './InputTodo';
 import About from '../pages/About';
 import NotMatch from '../pages/NotMatch';
 import Navbar from './Navbar';
+import SinglePage from '../pages/SinglePage';
 
 class TodoContainer extends React.PureComponent {
   constructor(props) {
@@ -103,7 +104,9 @@ render() {
             </div>
         )}
         />
-        <Route path="ToDoApp_React_JS/about" element={<About />} />
+        <Route path="ToDoApp_React_JS/about" element={<About />}>
+          <Route path=":slug" element={<SinglePage />} />
+        </Route>
         <Route path="*" element={<NotMatch />} />
       </Routes>
     </>
