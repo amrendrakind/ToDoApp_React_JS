@@ -33,6 +33,7 @@ class InputTodo extends PureComponent {
       <form onSubmit={this.handleSubmit} className="form-container">
         <input
           type="text"
+          className="input-text"
           placeholder="Add Todo..."
           value={title}
           name="title"

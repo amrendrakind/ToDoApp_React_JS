@@ -5,7 +5,12 @@ import styles from './TodoItem.module.css';
 function TodoItem(props) {
   const { todo, handleChangeProps, handleDeleteTodoProps } = props;
   const { title, completed, id } = todo;
-
+  const completedStyle = {
+    fontStyle: 'italic',
+    color: '#595959',
+    opacity: 0.4,
+    textDecoration: 'line-through',
+  };
   return (
     <li className={styles.item}>
       <input
@@ -16,12 +21,14 @@ function TodoItem(props) {
       />
       <button
         type="button"
+        className={styles.button}
         onClick={() => handleDeleteTodoProps(id)}
       >
         Delete
       </button>
-      {' '}
-      {title}
+      <span style={completed ? completedStyle : null}>
+        {title}
+      </span>
     </li>
   );
 }
