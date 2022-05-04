@@ -87,7 +87,7 @@ render() {
       <Routes>
         <Route
           exact
-          path="/"
+          path="/ToDoApp_React_JS"
           element={(
             <div className="container">
               <div className="inner">
@@ -103,7 +103,7 @@ render() {
             </div>
         )}
         />
-        <Route path="/about" element={<About />} />
+        <Route path="ToDoApp_React_JS/about" element={<About />} />
         <Route path="*" element={<NotMatch />} />
       </Routes>
     </>
