@@ -38,7 +38,7 @@ class InputTodo extends PureComponent {
           name="title"
           onChange={this.onChange}
         />
-        <button type="submit">Submit</button>
+        <button className="input-submit" type="submit">Submit</button>
       </form>
     );
   }
