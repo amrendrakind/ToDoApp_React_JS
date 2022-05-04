@@ -10,17 +10,17 @@ class TodoContainer extends React.PureComponent {
     this.state = {
       todos: [
         {
-          id: '1',
+          id: uuidv4(),
           title: 'Setup development environment',
           completed: true,
         },
         {
-          id: '2',
+          id: uuidv4(),
           title: 'Develop website and add content',
           completed: false,
         },
         {
-          id: '3',
+          id: uuidv4(),
           title: 'Deploy to live server',
           completed: false,
         },

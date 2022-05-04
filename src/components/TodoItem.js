@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './TodoItem.module.css';
 
 function TodoItem(props) {
   const { todo, handleChangeProps, handleDeleteTodoProps } = props;
   const { title, completed, id } = todo;
 
   return (
-    <li>
+    <li className={styles.item}>
       <input
         type="checkbox"
+        className={styles.checkbox}
         checked={completed}
         onChange={() => handleChangeProps(id)}
       />

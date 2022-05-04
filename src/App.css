@@ -10,6 +10,8 @@ body {
   color: #444;
   background: #fff;
   height: 100vh;
+  width: 40%;
+  margin: 0 auto;
 }
 
 .container {
@@ -63,3 +65,4 @@ body {
   outline: none;
   border: none;
 }
+
