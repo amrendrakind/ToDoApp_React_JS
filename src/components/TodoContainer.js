@@ -1,11 +1,12 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import TodosList from './TodosList';
 import Header from './Header';
 import InputTodo from './InputTodo';
 import About from '../pages/About';
 import NotMatch from '../pages/NotMatch';
+import Navbar from './Navbar';
 
 class TodoContainer extends React.PureComponent {
   constructor(props) {
@@ -81,28 +82,31 @@ setUpdate = (updatedTitle, id) => {
 render() {
   const { todos } = this.state;
   return (
-    <Switch>
-      <Route exact path="/">
-        <div className="container">
-          <div className="inner">
-            <Header />
-            <InputTodo addTodoProps={this.addTodoItem} />
-            <TodosList
-              todos={todos}
-              handleChangeProps={this.handleChange}
-              handleDeleteTodoProps={this.delTodo}
-              setUpdate={this.setUpdate}
-            />
-          </div>
-        </div>
-      </Route>
-      <Route path="/about">
-        <About />
-      </Route>
-      <Route path="*">
-        <NotMatch />
-      </Route>
-    </Switch>
+    <>
+      <Navbar />
+      <Routes>
+        <Route
+          exact
+          path="/"
+          element={(
+            <div className="container">
+              <div className="inner">
+                <Header />
+                <InputTodo addTodoProps={this.addTodoItem} />
+                <TodosList
+                  todos={todos}
+                  handleChangeProps={this.handleChange}
+                  handleDeleteTodoProps={this.delTodo}
+                  setUpdate={this.setUpdate}
+                />
+              </div>
+            </div>
+        )}
+        />
+        <Route path="/about" element={<About />} />
+        <Route path="*" element={<NotMatch />} />
+      </Routes>
+    </>
   );
 }
 }
