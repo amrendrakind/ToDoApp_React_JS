@@ -60,20 +60,38 @@ class TodoContainer extends React.PureComponent {
     });
   };
 
-  render() {
-    const { todos } = this.state;
-    return (
-      <div>
+setUpdate = (updatedTitle, id) => {
+  const { todos } = this.state;
+  this.setState({
+    todos: todos.map((todo) => {
+      if (todo.id === id) {
+        return {
+          ...todo,
+          title: updatedTitle,
+        };
+      }
+      return todo;
+    }),
+  });
+}
+
+render() {
+  const { todos } = this.state;
+  return (
+    <div className="container">
+      <div className="inner">
         <Header />
         <InputTodo addTodoProps={this.addTodoItem} />
         <TodosList
           todos={todos}
           handleChangeProps={this.handleChange}
           handleDeleteTodoProps={this.delTodo}
+          setUpdate={this.setUpdate}
         />
       </div>
-    );
-  }
+    </div>
+  );
+}
 }
 
 export default TodoContainer;
