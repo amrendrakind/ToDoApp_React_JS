@@ -16,7 +16,7 @@ You can find live project at https://amrendrakind.github.io/ToDoApp_React_JS/
 - Webpack
 - GitFlow
 
-## Live Demo (Link for My Math Magicians Project)
+## Live Demo (Link for My To Do Lists Project)
 
 [Live Demo Link](https://amrendrakind.github.io/ToDoApp_React_JS)
 
