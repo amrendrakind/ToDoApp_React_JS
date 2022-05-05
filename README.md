@@ -100,6 +100,7 @@ Give a ⭐️ if you like this project!
 ## Acknowledgments
 
 - Microverse team for guidance
+- Ibas Majid
 
 ## 📝 License
 
