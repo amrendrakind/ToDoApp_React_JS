@@ -13,47 +13,36 @@ class TodoContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      todos: [
-        {
-          id: uuidv4(),
-          title: 'Setup development environment',
-          completed: true,
-        },
-        {
-          id: uuidv4(),
-          title: 'Develop website and add content',
-          completed: false,
-        },
-        {
-          id: uuidv4(),
-          title: 'Deploy to live server',
-          completed: false,
-        },
-      ],
+      todos: [],
     };
   }
 
-  handleChange = (id) => {
-    this.setState((prevState) => ({
-      todos: prevState.todos.map((todo) => {
-        if (todo.id === id) {
-          return {
-            ...todo,
-            completed: !todo.completed,
-          };
+  componentDidMount() {
+    fetch('https://jsonplaceholder.typicode.com/todos?_limit=10')
+      .then((response) => response.json())
+      .then((data) => {
+        const temp = localStorage.getItem('todos');
+        const loadedTodos = JSON.parse(temp);
+        let tempData = data;
+        if (loadedTodos) {
+          tempData = data.concat(loadedTodos).length >= 10
+            ? loadedTodos.splice(0, 10)
+            : data.concat(loadedTodos);
         }
-        return todo;
-      }),
-    }));
+        this.setState({ todos: tempData });
+      });
   }
 
-  delTodo = (id) => {
+  componentDidUpdate(prevProps, prevState) {
     const { todos } = this.state;
-    this.setState({
-      todos: [
-        ...todos.filter((todo) => todo.id !== id),
-      ],
-    });
+    if (prevState.todos !== todos) {
+      const temp = JSON.stringify(todos);
+      localStorage.setItem('todos', temp);
+    }
+  }
+
+  componentWillUnmount() {
+    console.log('Cleaning up...');
   }
 
   addTodoItem = (title) => {
@@ -70,53 +59,74 @@ class TodoContainer extends React.PureComponent {
     });
   };
 
-setUpdate = (updatedTitle, id) => {
-  const { todos } = this.state;
-  this.setState({
-    todos: todos.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          title: updatedTitle,
-        };
-      }
-      return todo;
-    }),
-  });
-}
+  setUpdate = (updatedTitle, id) => {
+    const { todos } = this.state;
+    this.setState({
+      todos: todos.map((todo) => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            title: updatedTitle,
+          };
+        }
+        return todo;
+      }),
+    });
+  };
 
-render() {
-  const { todos } = this.state;
-  return (
-    <>
-      <Navbar />
-      <Routes>
-        <Route
-          exact
-          path="/ToDoApp_React_JS"
-          element={(
-            <div className="container">
-              <div className="inner">
-                <Header />
-                <InputTodo addTodoProps={this.addTodoItem} />
-                <TodosList
-                  todos={todos}
-                  handleChangeProps={this.handleChange}
-                  handleDeleteTodoProps={this.delTodo}
-                  setUpdate={this.setUpdate}
-                />
+  delTodo = (id) => {
+    const { todos } = this.state;
+    this.setState({
+      todos: [...todos.filter((todo) => todo.id !== id)],
+    });
+  };
+
+  handleChange = (id) => {
+    this.setState((prevState) => ({
+      todos: prevState.todos.map((todo) => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            completed: !todo.completed,
+          };
+        }
+        return todo;
+      }),
+    }));
+  };
+
+  render() {
+    const { todos } = this.state;
+    return (
+      <>
+        <Navbar />
+        <Routes>
+          <Route
+            exact
+            path="/ToDoApp_React_JS"
+            element={(
+              <div className="container">
+                <div className="inner">
+                  <Header />
+                  <InputTodo addTodoProps={this.addTodoItem} />
+                  <TodosList
+                    todos={todos}
+                    handleChangeProps={this.handleChange}
+                    handleDeleteTodoProps={this.delTodo}
+                    setUpdate={this.setUpdate}
+                  />
+                </div>
               </div>
-            </div>
-        )}
-        />
-        <Route path="ToDoApp_React_JS/about" element={<About />}>
-          <Route path=":slug" element={<SinglePage />} />
-        </Route>
-        <Route path="*" element={<NotMatch />} />
-      </Routes>
-    </>
-  );
-}
+            )}
+          />
+          <Route path="ToDoApp_React_JS/about" element={<About />}>
+            <Route path=":slug" element={<SinglePage />} />
+          </Route>
+          <Route path="*" element={<NotMatch />} />
+        </Routes>
+      </>
+    );
+  }
 }
 
 export default TodoContainer;
